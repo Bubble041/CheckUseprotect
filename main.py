@@ -87,9 +87,10 @@ def remove_files():
     os.remove("data.csv")
     os.remove("index.html")
 
-def main():
+def get_csv():
     get_html('http://www.uceprotect.net/en/rblcheck.php')
     get_info()
     remove_files()
+
 if __name__ == '__main__':
-    main()
+    get_csv()
