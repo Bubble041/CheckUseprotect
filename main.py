@@ -1,15 +1,17 @@
 from tkinter.tix import Select
-from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
+from bs4 import BeautifulSoup
 import time
 import csv
 import os
 import datetime
 
 def get_html(url):
-    browser = webdriver.Chrome(executable_path=r'chromedriver.exe')
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+    browser = webdriver.Chrome(executable_path=r'chromedriver.exe', chrome_options=options)
     browser.get(url)
     time.sleep(2)
 
@@ -86,8 +88,8 @@ def remove_files():
     os.remove("index.html")
 
 def main():
-    #get_html('http://www.uceprotect.net/en/rblcheck.php')
+    get_html('http://www.uceprotect.net/en/rblcheck.php')
     get_info()
-    #remove_files()
+    remove_files()
 if __name__ == '__main__':
     main()
