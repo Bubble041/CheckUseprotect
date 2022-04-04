@@ -10,7 +10,7 @@ import datetime
 
 def get_html_Uceprotect(url, pool, number):
     options = webdriver.ChromeOptions()
-    #options.add_argument("--no-sandbox")
+    options.add_argument("--no-sandbox")
     options.add_argument('headless')
     browser = webdriver.Chrome(executable_path=r'chromedriver.exe', chrome_options=options)
     browser.get(url)

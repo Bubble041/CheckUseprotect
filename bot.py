@@ -3,8 +3,7 @@ from aiogram.dispatcher.filters import Text
 from main import get_csv
 import os
 
-#bot = Bot(token=os.getenv("TOKEN"))
-bot = Bot(token='5173871551:AAF3CXaesiSrC8PRi_UYXOFw97-xLL9WZow')
+bot = Bot(token=os.getenv("TOKEN"))
 dp = Dispatcher(bot)
 
 @dp.message_handler(commands="start")
