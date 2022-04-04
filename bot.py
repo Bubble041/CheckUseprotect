@@ -15,6 +15,12 @@ async def start(message: types.Message):
 
     await message.answer("Выберите спам-базу", reply_markup=keyboard)
 
+@dp.message_handler(commands="help")
+async def start(message: types.Message):
+
+    start_buttons = ["Uceprotect", "SpamHouse"]
+    await message.answer("Выберите спам-базу, затем в каком диапазоне адресов вы хотите получить информацию.")
+
 @dp.message_handler(Text(equals="Uceprotect"))
 async def range_selection(message: types.Message):
 
