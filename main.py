@@ -8,19 +8,20 @@ import csv
 import os
 import datetime
 
-def get_html(url):
+def get_html_Uceprotect(url, pool, number):
     options = webdriver.ChromeOptions()
+    #options.add_argument("--no-sandbox")
     options.add_argument('headless')
     browser = webdriver.Chrome(executable_path=r'chromedriver.exe', chrome_options=options)
     browser.get(url)
     time.sleep(2)
 
     select_ip = Select(browser.find_element_by_name('whattocheck'))
-    select_ip.select_by_value('ASN')
+    select_ip.select_by_value(pool)
 
     asn_input = browser.find_element_by_name('ipr')
     asn_input.clear()
-    asn_input.send_keys('9123')
+    asn_input.send_keys(number)
 
     asn_input.send_keys(Keys.ENTER)
     time.sleep(2)
@@ -35,7 +36,7 @@ def get_html(url):
         file.write(ip_list)
     print("*****************\nHTML created\n")
 
-def get_info():
+def get_info_Uceprotect():
 
     info = []
     with open('index.html', encoding='utf_8') as file:
@@ -87,9 +88,11 @@ def remove_files():
     os.remove("data.csv")
     os.remove("index.html")
 
-def get_csv():
-    get_html('http://www.uceprotect.net/en/rblcheck.php')
-    get_info()
+def get_csv(base, pool, number):
+    if base == "Uceprotect":
+        if pool == "ASN":
+            get_html_Uceprotect('http://www.uceprotect.net/en/rblcheck.php', pool, number)
+            get_info_Uceprotect()
     remove_files()
 
 if __name__ == '__main__':

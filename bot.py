@@ -1,30 +1,44 @@
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.dispatcher.filters import Text
-from aiogram.utils.markdown import hbold, hlink
 from main import get_csv
 import os
 
-bot = Bot(token=os.getenv("TOKEN"))
+#bot = Bot(token=os.getenv("TOKEN"))
+bot = Bot(token='5173871551:AAF3CXaesiSrC8PRi_UYXOFw97-xLL9WZow')
 dp = Dispatcher(bot)
 
 @dp.message_handler(commands="start")
 async def start(message: types.Message):
-    start_buttons = ["Uceprotect"]
+
+    start_buttons = ["Uceprotect", "SpamHouse"]
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(*start_buttons)
 
-    await message.answer("Ok", reply_markup=keyboard)
+    await message.answer("Выберите спам-базу", reply_markup=keyboard)
 
 @dp.message_handler(Text(equals="Uceprotect"))
-async def get_spam_base_info(message: types.Message):
+async def range_selection(message: types.Message):
+
+    pool_buttons = ["ASN", "IP"]
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    keyboard.add(*pool_buttons)
+    await message.answer("Выберите диапазон:", reply_markup=keyboard)
+
+@dp.message_handler(Text(equals="ASN"))
+async def set_asn(message: types.Message):
+
+    keyboard = types.ReplyKeyboardRemove()
     await message.answer("Please waiting...")
-    
-    get_csv()
+    get_csv('Uceprotect', 'ASN', '9123')
     await message.answer("Done!")
 
+    pool_buttons = ["/start"]
+    keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    keyboard.add(*pool_buttons)
+    await message.answer("Нажмите /start, чтобы повторить:", reply_markup=keyboard)
 
 def main():
-    executor.start_polling(dp)
+    executor.start_polling(dp, skip_updates=True)
 
 if __name__ == "__main__":
     main()
