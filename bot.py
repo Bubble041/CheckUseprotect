@@ -28,9 +28,12 @@ async def set_asn(message: types.Message):
 
     keyboard = types.ReplyKeyboardRemove()
     await message.answer("Please waiting...")
-    get_csv('Uceprotect', 'ASN', '9123')
-    await message.answer("Done!")
-
+    try:
+        get_csv('Uceprotect', 'ASN', '9123')
+        await message.answer("Done!")
+    except Exception as ex:
+        await message.answer("Something was wronge")
+        
     pool_buttons = ["/start"]
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add(*pool_buttons)

@@ -14,7 +14,7 @@ def get_html_Uceprotect(url, pool, number):
     options = webdriver.ChromeOptions()
     options.add_argument("--no-sandbox")
     options.add_argument('headless')
-    browser = webdriver.Chrome(executable_path=r'chromedriver.exe', chrome_options=options)
+    browser = webdriver.Chrome(executable_path=r'chromedriver/chromedriver', chrome_options=options)
     browser.get(url)
     time.sleep(2)
 
